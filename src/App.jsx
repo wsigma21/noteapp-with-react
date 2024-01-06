@@ -12,6 +12,11 @@ function App() {
   useEffect(()=> {
     localStorage.setItem("notes", JSON.stringify(notes));
   },[notes]);
+
+  // ページを開くとノートの1番目が選択された状態にする
+  useEffect(()=> {
+    if (notes.length !== 0) setActiveNoteId(notes[0].id);
+  },[]);
   
   const onAddNote = () => {
     const newNote = {
