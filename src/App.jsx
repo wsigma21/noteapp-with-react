@@ -6,7 +6,7 @@ import { v4 as uuid } from "uuid";
 
 function App() {
   const [notes, setNotes] = useState([]);
-  const [activeNote, setActiveNote] = useState(false);
+  const [activeNoteId, setActiveNoteId] = useState(false);
   
   const onAddNote = () => {
     const newNote = {
@@ -16,7 +16,6 @@ function App() {
       modDate: Date.now(),
     };
     setNotes([...notes, newNote]);
-    console.log(notes);
   }
 
   const onDeleteNote = (id) => {
@@ -25,7 +24,19 @@ function App() {
   }
 
   const getActiveNote = () => {
-    return notes.find((note) => note.id === activeNote)
+    return notes.find((note) => note.id === activeNoteId)
+  }
+
+  const onUpdateNote = (updatedNote) => {
+    // 更新された新しいnotesの配列を返す
+    const updatedNotesArray = notes.map((note) => {
+      if(note.id === updatedNote.id) {
+        return updatedNote;
+      } else {
+        return note;
+      }
+    })
+    setNotes(updatedNotesArray)
   }
 
   return (
@@ -34,10 +45,10 @@ function App() {
         onAddNote={onAddNote}
         onDeleteNote={onDeleteNote}
         notes={notes}
-        activeNote={activeNote}
-        setActiveNote={setActiveNote}
+        activeNoteId={activeNoteId}
+        setActiveNoteId={setActiveNoteId}
       />
-      <Main activeNote={getActiveNote()}/>
+      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote}/>
     </div>
   )
 }
