@@ -1,12 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Main from './components/Main'
 import Sidebar from './components/Sidebar'
 import { v4 as uuid } from "uuid";
 
 function App() {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(JSON.parse(localStorage.getItem("notes")) || []);
   const [activeNoteId, setActiveNoteId] = useState(false);
+
+  // notesが更新されるたびにローカルストレージも更新
+  useEffect(()=> {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  },[notes]);
   
   const onAddNote = () => {
     const newNote = {
