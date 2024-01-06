@@ -1,4 +1,6 @@
 import "./Main.css"
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 function Main({ activeNote, onUpdateNote }) {
   const onEditNote = (key, value) => {
@@ -30,7 +32,9 @@ function Main({ activeNote, onUpdateNote }) {
       </div>
       <div className="app-main-note-preview">
         <h1 className="preview-title">{activeNote.title}</h1>
-        <div className="markdown-preview">{activeNote.content}</div>
+        <Markdown className="markdown-preview" remarkPlugins={[remarkGfm]}>
+          {activeNote.content}
+        </Markdown>
       </div>
     </div>
   )
