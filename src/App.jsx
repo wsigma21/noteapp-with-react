@@ -6,6 +6,8 @@ import { v4 as uuid } from "uuid";
 
 function App() {
   const [notes, setNotes] = useState([]);
+  const [activeNote, setActiveNote] = useState(false);
+  
   const onAddNote = () => {
     const newNote = {
       id: uuid(),
@@ -16,13 +18,21 @@ function App() {
     setNotes([...notes, newNote]);
     console.log(notes);
   }
+
   const onDeleteNote = (id) => {
     const filterNotes = notes.filter((note) => note.id !== id);
     setNotes(filterNotes);
   }
+
   return (
     <div className="App">
-      <Sidebar onAddNote={onAddNote}onDeleteNote={onDeleteNote} notes={notes}/>
+      <Sidebar 
+        onAddNote={onAddNote}
+        onDeleteNote={onDeleteNote}
+        notes={notes}
+        activeNote={activeNote}
+        setActiveNote={setActiveNote}
+      />
       <Main />
     </div>
   )

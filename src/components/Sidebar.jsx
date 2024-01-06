@@ -1,6 +1,12 @@
 import "./Sidebar.css"
 
-const Sidebar = ({ onAddNote, onDeleteNote, notes }) => {
+const Sidebar = ({ 
+  onAddNote, 
+  onDeleteNote, 
+  notes,
+  activeNote,
+  setActiveNote,
+}) => {
   return (
     <div className="app-sidebar">
       <div className="app-sidebar-header">
@@ -9,7 +15,7 @@ const Sidebar = ({ onAddNote, onDeleteNote, notes }) => {
       </div>
       <div className="app-sidebar-notes">
           {notes.map((note) => (
-            <div className="app-sidebar-note" key={note.id}>
+            <div className={`app-sidebar-note ${note.id === activeNote ? "active" : ""}`} key={note.id} onClick={() => setActiveNote(note.id)}>
               <div className="sidebar-note-title">
                 <strong>{note.title}</strong>
                 <button onClick={() => onDeleteNote(note.id)}>削除</button>
