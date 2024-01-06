@@ -7,7 +7,7 @@ function Main({ activeNote, onUpdateNote }) {
     onUpdateNote({
       ...activeNote,
       [key]: value,
-      modeDate: Date.now(),
+      modDate: Date.now(),
     });
   }
 
